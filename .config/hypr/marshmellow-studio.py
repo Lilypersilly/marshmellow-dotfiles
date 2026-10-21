@@ -120,7 +120,7 @@ class StudioApp(Gtk.Application):
         outer.add_css_class("main-box")
         win.set_child(outer)
 
-        hdr = Gtk.Label(label="🌸  Marshmellow Studio")
+        hdr = Gtk.Label(label="Marshmellow Studio")
         hdr.add_css_class("title-lbl")
         outer.append(hdr)
 
@@ -172,17 +172,17 @@ class StudioApp(Gtk.Application):
         btn_row.set_halign(Gtk.Align.CENTER)
         outer.append(btn_row)
 
-        btn_save = Gtk.Button(label="💾  Save to Configs")
+        btn_save = Gtk.Button(label="Save to Configs")
         btn_save.add_css_class("action-pill")
         btn_save.connect("clicked", self.save_all)
         btn_row.append(btn_save)
 
-        btn_wp = Gtk.Button(label="🖼️  Wallpapers")
+        btn_wp = Gtk.Button(label="Wallpapers")
         btn_wp.add_css_class("action-pill")
         btn_wp.connect("clicked", lambda b: subprocess.Popen(["/home/lilypersilly/.config/hypr/wallpaper-carousel.py"]))
         btn_row.append(btn_wp)
 
-        btn_git = Gtk.Button(label="☁️  Backup to GitHub")
+        btn_git = Gtk.Button(label="Backup to GitHub")
         btn_git.add_css_class("action-pill")
         btn_git.connect("clicked", self.backup_github)
         btn_row.append(btn_git)
