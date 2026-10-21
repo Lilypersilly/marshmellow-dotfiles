@@ -64,7 +64,7 @@ ACTIONS = [
     ("", "Shutdown", "systemctl poweroff"),
     ("󰜉", "Reboot",   "systemctl reboot"),
     ("󰤄", "Suspend",  "systemctl suspend"),
-    ("󰍃", "Logout",   "hyprctl dispatch exit"),
+    ("󰍃", "Logout",   "killall Hyprland"),
 ]
 
 class PowerMenuApp(Gtk.Application):
