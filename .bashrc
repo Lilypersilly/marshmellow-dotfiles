@@ -43,3 +43,6 @@ weather() {
 
 # Emergency 1-word restore for Hyprland config
 alias fixhypr='cp ~/.config/hypr/hyprland.lua.safe ~/.config/hypr/hyprland.lua.tmp && mv ~/.config/hypr/hyprland.lua.tmp ~/.config/hypr/hyprland.lua && hyprctl reload && echo "🌸 Hyprland restored to safety!"'
+
+# 1-word command to sync and push all Marshmellow dotfiles to GitHub
+alias backupdots='cp ~/.config/hypr/hyprland.lua ~/.config/hypr/hyprland.lua.safe && ~/marshmellow-dotfiles/sync.sh && cd ~/marshmellow-dotfiles && git add . && git commit -m "Update Marshmellow dotfiles 🌸" && git push && cd - >/dev/null'
