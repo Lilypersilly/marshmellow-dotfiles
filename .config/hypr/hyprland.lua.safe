@@ -62,7 +62,8 @@ hl.on("hyprland.start", function ()
 	hl.exec_cmd("~/.config/hypr/automount.sh")
 	hl.exec_cmd("pkill swayosd-server; swayosd-server")
     hl.exec_cmd("swww-daemon --format xrgb")
-    hl.exec_cmd("waypaper --restore")
+    hl.exec_cmd("sh -c '[ -f ~/.config/hypr/.current_wallpaper ] && swww img \"$(cat ~/.config/hypr/.current_wallpaper)\" --resize crop'")
+    hl.exec_cmd("~/.config/hypr/dashboard.sh")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
    	hl.exec_cmd("wl-paste --type image --watch cliphist store")
     	hl.exec_cmd("wl-paste --type text/uri-list --watch cliphist store")
@@ -287,8 +288,8 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("pkill wofi || wofi --show drun")
 -- 144Hz Marshmellow Power Menu
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("~/.config/hypr/power-menu.py"))
 
--- Open Animated Wallpaper Gallery
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("pkill waypaper || waypaper"))
+-- Open Horizontal Wallpaper Carousel
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/wallpaper-carousel.py"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + h",  hl.dsp.focus({ direction = "left" }))
@@ -370,7 +371,7 @@ hl.window_rule({
     match = { title = "^Audio Control$" },
 
     float = true,
-    opacity     = "0.7 override 0.5 override",
+    opacity     = "0.95 override 0.5 override",
     move  = { "monitor_w-window_w-15", "46" },
     animation = "slide top",
 })
@@ -380,7 +381,7 @@ hl.window_rule({
     match = { title = "^Clipboard History$" },
 
     float = true,
-    opacity     = "0.7 override 0.5 override",
+    opacity     = "0.95 override 0.5 override",
     move  = { "monitor_w-window_w-15", "46" },
     animation = "slide top",
 })
@@ -405,7 +406,7 @@ hl.window_rule({
 
     float     = true,
     move      = { "monitor_w/2 - window_w/2", "46" },
-    opacity   = "0.60 override 0.50 override",
+    opacity   = "0.95 override 0.50 override",
     animation = "slide top",
 })
 
@@ -512,6 +513,20 @@ hl.window_rule({
     float   = true,
     center  = true,
     opacity = "0.95 override 0.90 override",
+})
+
+-- Transparent 144Hz Diamond Wave Wallpaper Switcher
+hl.window_rule({
+    name  = "marshmellow-wallpaper-carousel",
+    match = { title = "^Marshmellow Wallpapers$" },
+
+    float       = true,
+    size        = "1800 480",
+    center      = true,
+    border_size = 0,
+    no_blur     = true,
+    no_shadow   = true,
+    opacity     = "1.0 override 1.0 override",
 })
 
 -- Make SwayNC slide down from the top and enable frosted glass blur
