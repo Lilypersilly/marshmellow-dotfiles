@@ -1,0 +1,32 @@
+[General]
+Background="Backgrounds/marshmellow_wall.png"
+DimBackgroundImage="0.0"
+ScaleImageCropped="true"
+ScreenWidth="1920"
+ScreenHeight="1080"
+
+## Blur & Card Background Settings
+FullBlur="false"
+PartialBlur="false"
+BlurRadius="45"
+HaveFormBackground="true"
+FormPosition="center"
+BackgroundImageHAlignment="center"
+BackgroundImageVAlignment="center"
+
+## Marshmellow Colors (Pastel Pink Card, Dark Plum Pills, Hot Pink Border/Accents)
+MainColor="#2b1e28"
+AccentColor="#e86ca8"
+BackgroundColor="#f7d0e2"
+OverrideLoginButtonTextColor="#f7d0e2"
+
+## Round Corners & Sizing
+InterfaceShadowSize="6"
+InterfaceShadowOpacity="0.35"
+RoundCorners="20"
+ScreenPadding="0"
+
+## Typography & Custom Header
+Font="Josefin Sans"
+FontSize="12"
+HeaderText="Marshmellow"
