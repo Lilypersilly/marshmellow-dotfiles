@@ -545,3 +545,23 @@ hl.layer_rule({
     animation   = "slide top",
     blur        = true,
 })
+
+-- Bind Workspace 2 permanently to the vertical monitor (DP-3)
+hl.workspace_rule({
+    workspace = "2",
+    monitor   = "DP-3",
+    default   = true,
+})
+
+-- Always open the vertical dashboard apps on Workspace 2 (DP-3)
+hl.window_rule({
+    name      = "vertical-dashboard-ws2",
+    match     = { class = "^marshmellow-(btop|lava|cava)$" },
+    workspace = "2",
+    opacity   = "1.0 override 0.6 override",
+})
+
+-- Autostart vertical monitor dashboard (btop on top, lavat + cava on bottom)
+hl.on("hyprland.start", function()
+    hl.exec_cmd("~/.config/hypr/vertical-dashboard.sh")
+end)
