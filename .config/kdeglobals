@@ -148,6 +148,9 @@ Sort reversed=false
 Speedbar Width=140
 View Style=DetailTree
 
+[KShortcutsDialog Settings]
+Dialog Size=616,480
+
 [PreviewSettings]
 EnableRemoteFolderThumbnail=false
 MaximumRemoteSize=0

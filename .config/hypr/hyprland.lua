@@ -453,6 +453,14 @@ hl.window_rule({
                opacity = "1.0 override 0.6 override",
 })
 
+-- 100% Opacity for CoverBuilder when focused (60% when unfocused)
+hl.window_rule({
+    name  = "opaque-coverbuilder",
+    match = { class = ".*[Cc]over[Bb]uilder.*" },
+
+    opacity = "1.0 override 0.6 override",
+})
+
 -- Float & Center the 144Hz Power Menu
 hl.window_rule({
     name  = "marshmellow-power-menu",
