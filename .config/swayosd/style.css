@@ -1,0 +1,41 @@
+* {
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window {
+    padding: 0px 14px; /* 0px top/bottom padding! */
+    background: rgba(254, 228, 255, 0.85);
+    border: 2px solid #e975ca;
+    border-radius: 999px;
+}
+
+#osd {
+    margin: 0px 4px;
+}
+
+/* The Icon */
+image {
+    color: #bf40a1; 
+    min-width: 14px;  /* Shrunk the icon */
+    min-height: 14px; /* Shrunk the icon */
+    margin-right: 8px;
+}
+
+/* The Slider Background */
+progressbar trough {
+    min-width: 120px;
+    min-height: 3px;  /* Ultra-thin bar */
+    border-radius: 999px;
+    background: rgba(50, 42, 50, 0.4); 
+    border: none;
+}
+
+/* The Slider Fill */
+progressbar progress {
+    min-height: 3px;
+    border-radius: 999px;
+    background: #e975ca; 
+    border: none;
+}

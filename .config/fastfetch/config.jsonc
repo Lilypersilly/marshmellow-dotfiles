@@ -1,0 +1,77 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "file",
+        "source": "~/.config/fastfetch/bunny.txt",
+        "color": {
+            "1": "1;38;2;30;150;180"
+        },
+        "padding": {
+            "top": 0,
+            "left": 3,
+            "right": 4
+        }
+    },
+    "display": {
+        "separator": " ➜  ",
+        "color": {
+            "keys": "magenta",
+            "title": "magenta"
+        }
+    },
+    "modules": [
+        "title",
+        "separator",
+        {
+            "type": "os",
+            "key": "OS     "
+        },
+        {
+            "type": "wm",
+            "key": "WM     "
+        },
+        {
+            "type": "custom",
+            "key": "Theme  ",
+            "format": "Marshmellow 🌸"
+        },
+        {
+            "type": "cursor",
+            "key": "Cursor "
+        },
+        {
+            "type": "terminal",
+            "key": "Term   "
+        },
+        {
+            "type": "terminalfont",
+            "key": "Font   "
+        },
+        {
+            "type": "uptime",
+            "key": "Uptime "
+        },
+        {
+            "type": "cpu",
+            "key": "CPU    "
+        },
+        {
+            "type": "gpu",
+            "key": "GPU    "
+        },
+        {
+            "type": "memory",
+            "key": "Memory "
+        },
+        {
+            "type": "command",
+            "key": "Storage",
+            "text": "df -B1 -x tmpfs -x devtmpfs -x efivarfs | awk 'NR>1 && $1 ~ /^\\/dev\\/(sd|nvme)/ && !seen[$1]++ {u+=$3; t+=$2} END {printf \"%.2f TiB / %.2f TiB (%d%%)\", u/1099511627776, t/1099511627776, (u/t)*100}'"
+        },
+        "break",
+        {
+            "type": "colors",
+            "symbol": "circle"
+        }
+    ]
+}

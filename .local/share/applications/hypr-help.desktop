@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Help (Hyprland Keybinds)
+GenericName=Keybind Guide
+Comment=View Hyprland keybindings cheat sheet
+Exec=sh -c 'wofi --dmenu --prompt "Keybinds (Press Esc/Enter to close)" < "$HOME/.config/hypr/keybinds.txt"'
+Icon=help-contents
+Terminal=false
+Type=Application
+Categories=Utility;Documentation;
+Keywords=help;keybinds;shortcuts;guide;hyprland;cheatsheet;

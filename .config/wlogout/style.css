@@ -1,0 +1,46 @@
+* {
+    background-image: none;
+    font-family: "Josefin Sans", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* The fullscreen frosted glass overlay (Dark Plum) */
+window {
+    background-color: rgba(50, 42, 50, 0.75);
+}
+
+/* The Buttons */
+button {
+    color: #fee4ff;
+    background-color: rgba(233, 117, 202, 0.4); 
+    border: 3px solid #e975ca;
+    border-radius: 999px; 
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.4);
+    margin: 20px;
+    background-repeat: no-repeat;
+    
+    /* This pushes the icon up and text down! */
+    background-position: center 25%; 
+    background-size: 20%; 
+    padding-top: 80px; 
+    
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover & Focus state */
+button:focus, button:active, button:hover {
+    background-color: #ef96d9; 
+    border: 3px solid #bf40a1; 
+    color: #322a32;
+    background-size: 20%; /* Icon grows slightly on hover! */
+    border-radius: 999px;
+}
+
+/* Map the default white wlogout icons */
+#lock { background-image: image(url("/usr/share/wlogout/icons/lock.png")); }
+#logout { background-image: image(url("/usr/share/wlogout/icons/logout.png")); }
+#suspend { background-image: image(url("/usr/share/wlogout/icons/suspend.png")); }
+#hibernate { background-image: image(url("/usr/share/wlogout/icons/hibernate.png")); }
+#reboot { background-image: image(url("/usr/share/wlogout/icons/reboot.png")); }
+#shutdown { background-image: image(url("/usr/share/wlogout/icons/shutdown.png")); }

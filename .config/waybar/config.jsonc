@@ -1,0 +1,75 @@
+
+{
+    "layer": "top",
+    "position": "top",
+    "height": 22,
+    "spacing": 8,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+
+    // --- MODULE LAYOUT ---
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["mpris", "clock"],
+    "modules-right": ["custom/clipboard", "pulseaudio", "network", "battery", "tray"],
+
+    // --- MODULE SETTINGS ---
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{name}"
+    },
+    "hyprland/window": {
+        "max-length": 40,
+        "separate-outputs": true
+    },
+    "mpris": {
+     "format": "   {title}",
+     "format-paused": "󰏤   {title}",
+     "max-length": 35,
+     "on-click": "~/.config/waybar/media-popover.py",
+     "on-click-middle": "playerctl play-pause"
+    },
+    "clock": {
+        "format": "󰥔  {:%H:%M   󰃭  %a %d %b}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "swaync-client -t",
+        "on-click-right": "swaync-client -C"
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "   {essid}",
+        "format-ethernet": "󰈀  Wired",
+        "format-disconnected": "󰖪  Offline",
+        "tooltip-format": "{ifname} via {gwaddr}"
+    },
+    "custom/clipboard": {
+    "format": "󰅌",
+    "tooltip-format": "Clipboard History (Left-click to open, Right-click to clear)",
+    "on-click": "~/.config/waybar/clipboard-popover.py",
+    "on-click-right": "cliphist wipe"
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰝟  Muted",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "~/.config/waybar/audio-popover.py",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 5
+    },
+    "tray": {
+        "spacing": 10
+    }
+}
+

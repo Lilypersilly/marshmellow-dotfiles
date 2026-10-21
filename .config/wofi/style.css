@@ -1,0 +1,75 @@
+/* --- MARSHMELLOW WOFI THEME --- */
+window {
+    margin: 0px;
+    border: 3px solid #e975ca;
+    background-color: rgba(254, 228, 255, 0.95);
+    border-radius: 14px;
+    font-family: "Josefin Sans", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#outer-box {
+    margin: 12px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Search Input Bar (Dark Plum contrast like your Clock pill!) */
+#input {
+    margin: 4px 4px 12px 4px;
+    padding: 10px 14px;
+    border: 2px solid #e975ca;
+    border-radius: 10px;
+    color: #fee4ff;
+    background-color: #322a32;
+    outline: none;
+}
+
+#input:focus {
+    border: 2px solid #bf40a1;
+}
+
+#inner-box {
+    margin: 4px;
+    border: none;
+    background-color: transparent;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+/* App Names */
+#text {
+    margin: 4px 8px;
+    border: none;
+    color: #333933;
+}
+
+/* App Icons */
+#img {
+    margin-right: 8px;
+}
+
+/* App Row Entry */
+#entry {
+    padding: 8px 12px;
+    margin: 3px 4px;
+    border-radius: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Selected / Highlighted App */
+#entry:selected {
+    background-color: #ef96d9;
+    border: 1px solid #e975ca;
+    outline: none;
+}
+
+#entry:selected #text {
+    color: #322a32;
+    font-weight: bold;
+}

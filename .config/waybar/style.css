@@ -1,0 +1,106 @@
+/* --- MARSHMELLOW PALETTE (0.75 - 0.80 Opacity) --- */
+@define-color bg_main      rgba(254, 228, 255, 0.72);
+@define-color bg_pill      rgba(255, 194, 255, 0.75);
+@define-color bg_dark      rgba(50, 42, 50, 0.78);
+@define-color accent       rgba(233, 117, 202, 0.85);
+@define-color selection    rgba(239, 150, 217, 0.80);
+@define-color magenta      #bf40a1;
+@define-color fg_main      #333933;
+@define-color fg_muted     #856d8a;
+@define-color positive     #27ae60;
+@define-color warning      #f67400;
+@define-color critical     #da4453;
+
+* {
+    font-family: "Josefin Sans", "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 11.5px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @fg_main;
+}
+
+/* Slim True Capsule Pills (~22px tall) */
+#workspaces,
+#window,
+#clock,
+#custom-clipboard,
+#pulseaudio,
+#network,
+#cpu,
+#mpris,
+#memory,
+#battery,
+#tray {
+    background-color: @bg_main;
+    color: @fg_main;
+    padding: 0px 12px;
+    margin: 1px 0px;
+    border-radius: 999px;
+    border: 1.5px solid @accent;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+    border: none;
+}
+
+#workspaces {
+    padding: 0px 3px;
+}
+
+#workspaces button {
+    padding: 0px 7px;
+    margin: 1px;
+    border-radius: 999px;
+    color: @fg_muted;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    color: #fee4ff;
+    background-color: @accent;
+}
+
+#workspaces button:hover {
+    background-color: @bg_pill;
+    color: @fg_main;
+}
+
+/* Dark Plum Clock Pill */
+#clock {
+    background-color: @bg_dark;
+    color: #fee4ff;
+    border-color: @accent;
+}
+
+#custom-clipboard { color: @magenta; }
+#pulseaudio       { color: @magenta; }
+#network          { color: @fg_main; }
+#cpu              { color: @magenta; }
+#memory           { color: @fg_muted; }
+#battery          { color: @positive; }
+#mpris { color: @magenta; }
+#mpris.paused { color: @fg_muted; }
+#battery.warning  { color: @warning; }
+#battery.critical { color: @critical; }
+
+/* Marshmellow Tooltips */
+tooltip {
+    background-color: @bg_dark;
+    border: 1.5px solid @accent;
+    border-radius: 14px;
+}
+
+tooltip label {
+    color: #fee4ff;
+    padding: 6px;
+}

@@ -1,0 +1,52 @@
+===================================================================
+                    HYPRLAND KEYBINDINGS GUIDE                     
+===================================================================
+Main Modifier (SUPER) = Windows Key
+(Press any key to close this window)
+
+--- APPLICATIONS & LAUNCHERS ---
+SUPER + T                   Open Terminal (kitty)
+SUPER + E                   Open File Manager (dolphin)
+SUPER + SPACE               Open / Toggle App Launcher (wofi)
+SUPER + R                   Open Menu (hyprlauncher)
+SUPER + SHIFT + B           Reload / Restart Top Bar (waybar)
+SUPER + M                   Open Power Menu (wlogout)
+
+--- SCREENSHOTS (LUMINECAPTURE) ---
+SUPER + P                   Capture active monitor
+SUPER + SHIFT + P           Capture resizable region / window
+SUPER + CTRL + P            Capture all monitors
+
+--- WINDOW MANAGEMENT ---
+SUPER + W                   Close active window
+SUPER + F                   Toggle floating mode on window
+SUPER + V                   Toggle split direction (dwindle)
+SUPER + Left Mouse Drag     Move window
+SUPER + Right Mouse Drag    Resize window
+
+--- FOCUS & NAVIGATION (VIM KEYS) ---
+SUPER + H                   Move focus Left
+SUPER + L                   Move focus Right
+SUPER + K                   Move focus Up
+SUPER + J                   Move focus Down
+
+--- MOVING WINDOWS (VIM KEYS) ---
+SUPER + SHIFT + H           Move window Left
+SUPER + SHIFT + L           Move window Right
+SUPER + SHIFT + K           Move window Up
+SUPER + SHIFT + J           Move window Down
+
+--- WORKSPACES & SCRATCHPAD ---
+SUPER + [1-9, 0]            Switch to workspace 1-10
+SUPER + SHIFT + [1-9, 0]    Move active window to workspace 1-10
+SUPER + Mouse Scroll        Cycle through workspaces
+SUPER + S                   Toggle "magic" scratchpad workspace
+SUPER + SHIFT + S           Move window to "magic" scratchpad
+
+--- MULTIMEDIA & HARDWARE ---
+Fn + . / ,                  Volume Up / Down (SwayOSD popup)
+Fn + M                      Mute Audio (SwayOSD popup)
+Waybar Center Clock Click   Toggle Notification Center (SwayNC)
+Waybar Media Pill Click     Toggle Now Playing Dropdown
+Waybar Audio / Clip Click   Toggle Audio / Clipboard Dropdowns
+===================================================================

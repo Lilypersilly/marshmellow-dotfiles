@@ -1,0 +1,29 @@
+QMenu {
+    background-color: rgba(254, 228, 255, 0.95);
+    color: #333933;
+    border: 2px solid #e975ca;
+    border-radius: 14px;
+    padding: 6px;
+}
+
+QMenu::item {
+    padding: 6px 24px 6px 12px;
+    border-radius: 8px;
+    margin: 2px 4px;
+    background-color: transparent;
+}
+
+QMenu::item:selected {
+    background-color: #ef96d9;
+    color: #322a32;
+}
+
+QMenu::item:disabled {
+    color: #856d8a;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: #e975ca;
+    margin: 4px 10px;
+}

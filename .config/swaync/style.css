@@ -1,0 +1,52 @@
+@define-color bg-main rgba(254, 228, 255, 0.85);
+@define-color accent #e975ca;
+@define-color text-dark #333933;
+@define-color text-muted #856d8a;
+
+* {
+    font-family: "Josefin Sans", "JetBrainsMono Nerd Font", sans-serif;
+    font-weight: bold;
+}
+
+.notification-row {
+    outline: none;
+    margin: 10px;
+    padding: 0;
+}
+
+.notification {
+    background-color: @bg-main;
+    border: 2px solid @accent;
+    border-radius: 14px;
+    padding: 12px;
+    color: @text-dark;
+}
+
+.notification-content {
+    background: transparent;
+    padding: 0;
+}
+
+.summary {
+    font-size: 15px;
+    color: @accent;
+}
+
+.body {
+    font-size: 13px;
+    color: @text-dark;
+}
+
+/* Control Center Panel */
+.control-center {
+    background-color: rgba(50, 42, 50, 0.85);
+    border: 2px solid @accent;
+    border-radius: 14px;
+    color: #fee4ff;
+}
+
+.widget-title {
+    color: #fee4ff;
+    font-size: 18px;
+    margin: 10px;
+}
