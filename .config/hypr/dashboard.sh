@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
-# Wait a moment on boot for monitors & Waybar to settle
-sleep 1
+# 1. Smart-Wait for the Vertical Monitor to wake up and connect to Hyprland! (Checks every 0.5s for up to 10s)
+for _ in {1..20}; do
+    VERT_MON=$(hyprctl monitors -j | python3 -c "import sys, json; mons=json.load(sys.stdin); print(next((m['name'] for m in mons if m.get('transform',0) in (1,3) or m['height']>m['width']), ''))")
+    MAIN_MON=$(hyprctl monitors -j | python3 -c "import sys, json; mons=json.load(sys.stdin); print(next((m['name'] for m in mons if not (m.get('transform',0) in (1,3) or m['height']>m['width'])), ''))")
+    
+    if [ -n "$VERT_MON" ] && [ -n "$MAIN_MON" ]; then
+        break
+    fi
+    sleep 0.5
+done
 
-# 1. Automatically find your Vertical Monitor & Main Horizontal Monitor
-VERT_MON=$(hyprctl monitors -j | python3 -c "import sys, json; mons=json.load(sys.stdin); print(next((m['name'] for m in mons if m.get('transform',0) in (1,3) or m['height']>m['width']), ''))")
-MAIN_MON=$(hyprctl monitors -j | python3 -c "import sys, json; mons=json.load(sys.stdin); print(next((m['name'] for m in mons if not (m.get('transform',0) in (1,3) or m['height']>m['width'])), ''))")
-
-# Close any old dashboard windows if re-running
+# Close any old dashboard windows if re-running manually
 pkill -f "kitty --class dash-" 2>/dev/null
 sleep 0.2
 
