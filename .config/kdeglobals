@@ -122,7 +122,7 @@ smallestReadableFont=Josefin Sans,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 toolBarFont=Josefin Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [Icons]
-Theme=breeze
+Theme=Papirus-Light
 
 [KDE]
 AnimationDurationFactor=0.5

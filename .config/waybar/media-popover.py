@@ -12,15 +12,28 @@ from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib
 
 CSS = b"""
 window, window:backdrop, window.background {
-    font-family: "Josefin Sans", "JetBrainsMono Nerd Font", sans-serif;
     background-color: rgba(254, 228, 255, 0.35);
     background-image: none;
     border: none;
     border-radius: 0;
+    font-family: "Josefin Sans", "JetBrainsMono Nerd Font", sans-serif;
 }
 .header { font-size: 15px; font-weight: bold; color: #bf40a1; }
 .title { font-size: 16px; font-weight: bold; color: #322a32; }
 .artist { font-size: 13px; color: #856d8a; font-weight: bold; }
+.time-lbl { font-size: 11px; color: #504250; font-weight: bold; }
+progressbar trough {
+    min-height: 6px;
+    border-radius: 999px;
+    background-color: rgba(50, 42, 50, 0.35);
+    border: none;
+}
+progressbar progress {
+    min-height: 6px;
+    border-radius: 999px;
+    background-color: #e975ca;
+    border: none;
+}
 button.ctrl-btn {
     background-image: none;
     background-color: rgba(255, 194, 255, 0.8);
@@ -37,6 +50,13 @@ button.ctrl-btn:hover {
     border-color: #bf40a1;
 }
 """
+
+def fmt_time(microseconds):
+    try:
+        secs = int(float(microseconds) / 1000000)
+        return f"{secs // 60:02d}:{secs % 60:02d}"
+    except Exception:
+        return "00:00"
 
 class MediaDropdown(Gtk.Window):
     def __init__(self):
@@ -55,14 +75,16 @@ class MediaDropdown(Gtk.Window):
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
+
         self.connect("key-press-event", self.on_key)
+        self.setup_auto_close()
 
         self.current_title = None
         self.current_artist = None
         self.current_art_url = None
         self.current_status = None
 
-        self.main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        self.main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.main_box.set_margin_top(16)
         self.main_box.set_margin_bottom(16)
         self.main_box.set_margin_start(16)
@@ -70,26 +92,21 @@ class MediaDropdown(Gtk.Window):
         self.add(self.main_box)
 
         self.build_ui()
-        self.refresh_metadata()
-        # Check for track/art changes every 400ms while the popup is open
+        GLib.idle_add(self.refresh_metadata)
         GLib.timeout_add(400, self.refresh_metadata)
 
     def build_ui(self):
-        # --- HEADER ---
-        hdr_lbl = Gtk.Label(label="  Now Playing", xalign=0)
+        hdr_lbl = Gtk.Label(label="   Now Playing", xalign=0)
         hdr_lbl.get_style_context().add_class("header")
         self.main_box.pack_start(hdr_lbl, False, False, 0)
 
-        # --- HORIZONTAL BOX FOR ART + TEXT ---
         info_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
-        self.main_box.pack_start(info_box, False, False, 6)
+        self.main_box.pack_start(info_box, False, False, 4)
 
-        # --- ALBUM ART CONTAINER ---
         self.art_holder = Gtk.Box()
         self.art_holder.set_size_request(80, 80)
         info_box.pack_start(self.art_holder, False, False, 0)
 
-        # --- TITLE & ARTIST ---
         text_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
         text_box.set_valign(Gtk.Align.CENTER)
         info_box.pack_start(text_box, True, True, 0)
@@ -106,10 +123,21 @@ class MediaDropdown(Gtk.Window):
         self.lbl_artist.set_max_width_chars(20)
         text_box.pack_start(self.lbl_artist, False, False, 0)
 
-        # --- CONTROLS ---
+        self.prog_bar = Gtk.ProgressBar()
+        self.main_box.pack_start(self.prog_bar, False, False, 2)
+
+        time_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        self.lbl_pos = Gtk.Label(label="00:00", xalign=0)
+        self.lbl_pos.get_style_context().add_class("time-lbl")
+        self.lbl_len = Gtk.Label(label="00:00", xalign=1)
+        self.lbl_len.get_style_context().add_class("time-lbl")
+        time_box.pack_start(self.lbl_pos, True, True, 0)
+        time_box.pack_end(self.lbl_len, True, True, 0)
+        self.main_box.pack_start(time_box, False, False, 0)
+
         ctrl_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         ctrl_box.set_halign(Gtk.Align.CENTER)
-        self.main_box.pack_start(ctrl_box, False, False, 6)
+        self.main_box.pack_start(ctrl_box, False, False, 2)
 
         btn_prev = Gtk.Button(label="󰒮")
         btn_prev.get_style_context().add_class("ctrl-btn")
@@ -135,12 +163,12 @@ class MediaDropdown(Gtk.Window):
     def refresh_metadata(self):
         try:
             out = subprocess.check_output(
-                ['playerctl', 'metadata', '--format', '{{title}}|||{{artist}}|||{{mpris:artUrl}}|||{{status}}'],
+                ['playerctl', 'metadata', '--format', '{{title}}|||{{artist}}|||{{mpris:artUrl}}|||{{status}}|||{{position}}|||{{mpris:length}}'],
                 stderr=subprocess.DEVNULL
             ).decode().strip()
-            title, artist, art_url, status = out.split('|||')
+            title, artist, art_url, status, pos, length = out.split('|||')
         except Exception:
-            title, artist, art_url, status = "No Media Playing", "Play something first!", "", "Stopped"
+            title, artist, art_url, status, pos, length = "No Media Playing", "Play something first!", "", "Stopped", "0", "0"
 
         if title != self.current_title or artist != self.current_artist:
             self.current_title = title
@@ -151,6 +179,14 @@ class MediaDropdown(Gtk.Window):
         if status != self.current_status:
             self.current_status = status
             self.btn_play.set_label("󰏤" if status == "Playing" else "󰐊")
+
+        try:
+            p_val, l_val = float(pos), float(length)
+            self.prog_bar.set_fraction(min(1.0, max(0.0, p_val / l_val)) if l_val > 0 else 0.0)
+            self.lbl_pos.set_text(fmt_time(p_val))
+            self.lbl_len.set_text(fmt_time(l_val))
+        except Exception:
+            self.prog_bar.set_fraction(0.0)
 
         if art_url != self.current_art_url:
             self.current_art_url = art_url
@@ -190,6 +226,47 @@ class MediaDropdown(Gtk.Window):
             widget.set_size_request(80, 80)
         self.art_holder.pack_start(widget, True, True, 0)
         self.art_holder.show_all()
+        return False
+
+    def setup_auto_close(self):
+        self._close_timer = None
+        self._has_entered = False
+        self.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK)
+        self.connect("enter-notify-event", self._on_enter)
+        self.connect("leave-notify-event", self._on_leave)
+        self.connect("focus-out-event", self._on_focus_out)
+        # If user never moves mouse into the popup within 2.5s, allow close
+        GLib.timeout_add(2500, self._arm_close)
+
+    def _arm_close(self):
+        self._has_entered = True
+        return False
+
+    def _start_close_timer(self):
+        if self._close_timer is None:
+            self._close_timer = GLib.timeout_add(500, Gtk.main_quit)
+
+    def _cancel_close_timer(self):
+        if self._close_timer is not None:
+            GLib.source_remove(self._close_timer)
+            self._close_timer = None
+
+    def _on_enter(self, widget, event):
+        self._has_entered = True
+        self._cancel_close_timer()
+        return False
+
+    def _on_leave(self, widget, event):
+        # Ignore when mouse moves onto a button/slider inside the popup itself
+        if event.detail == Gdk.NotifyType.INFERIOR:
+            return False
+        if self._has_entered:
+            self._start_close_timer()
+        return False
+
+    def _on_focus_out(self, *args):
+        if self._has_entered:
+            self._start_close_timer()
         return False
 
     def on_key(self, widget, event):

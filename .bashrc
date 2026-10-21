@@ -30,3 +30,16 @@ fastfetch() {
         command fastfetch --logo-padding-top "$pad" "$@"
     fi
 }
+
+# Marshmellow Lava Lamp & Weather Shortcuts
+alias lava='lavat -c magenta -k cyan -R 2'
+weather() {
+    if [ "$1" = "full" ]; then
+        curl -s "wttr.in/$2"
+    else
+        curl -s "wttr.in/$1?0"
+    fi
+}
+
+# Emergency 1-word restore for Hyprland config
+alias fixhypr='cp ~/.config/hypr/hyprland.lua.safe ~/.config/hypr/hyprland.lua.tmp && mv ~/.config/hypr/hyprland.lua.tmp ~/.config/hypr/hyprland.lua && hyprctl reload && echo "🌸 Hyprland restored to safety!"'

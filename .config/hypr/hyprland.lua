@@ -61,6 +61,8 @@ hl.on("hyprland.start", function ()
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("~/.config/hypr/automount.sh")
 	hl.exec_cmd("pkill swayosd-server; swayosd-server")
+    hl.exec_cmd("swww-daemon --format xrgb")
+    hl.exec_cmd("sh -c '[ -f ~/.config/hypr/.current_wallpaper ] && swww img \"$(cat ~/.config/hypr/.current_wallpaper)\" --resize crop'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
    	hl.exec_cmd("wl-paste --type image --watch cliphist store")
     	hl.exec_cmd("wl-paste --type text/uri-list --watch cliphist store")
@@ -130,12 +132,12 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 15,
+        rounding       = 20,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 0.85,
-        inactive_opacity = 0.6,
+        active_opacity   = 0.91,
+        inactive_opacity = 0.60,
 
         shadow = {
     		enabled      = true,
@@ -282,8 +284,11 @@ hl.bind(mainMod .. " + V", hl.dsp.layout("togglesplit"))    -- dwindle only
 -- Open Program Launcher
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("pkill wofi || wofi --show drun"))
 
--- Power Menu (wlogout)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("pkill wlogout || wlogout -b 3 -T 300 -B 300"))
+-- 144Hz Marshmellow Power Menu
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("~/.config/hypr/power-menu.py"))
+
+-- Open Horizontal Wallpaper Carousel
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/wallpaper-carousel.py"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + h",  hl.dsp.focus({ direction = "left" }))
@@ -349,14 +354,14 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 
 
 
--- Float and center the Help Guide window
+-- Float and center the GTK4 Marshmellow Help Guide Card
 hl.window_rule({
     name  = "float-help-guide",
-    match = { class = "^hypr-help$" },
+    match = { title = "^Hyprland Keybinds$" },
 
-    float  = true,
-    size   = "750 650",
-    center = true,
+    float   = true,
+    center  = true,
+    opacity = "0.95 override 0.85 override",
 })
 
 -- Pin the Audio Dropdown right below Waybar in the top-right corner
@@ -365,7 +370,7 @@ hl.window_rule({
     match = { title = "^Audio Control$" },
 
     float = true,
-    opacity     = "0.7 override 0.5 override",
+    opacity     = "0.95 override 0.5 override",
     move  = { "monitor_w-window_w-15", "46" },
     animation = "slide top",
 })
@@ -375,7 +380,7 @@ hl.window_rule({
     match = { title = "^Clipboard History$" },
 
     float = true,
-    opacity     = "0.7 override 0.5 override",
+    opacity     = "0.95 override 0.5 override",
     move  = { "monitor_w-window_w-15", "46" },
     animation = "slide top",
 })
@@ -400,7 +405,7 @@ hl.window_rule({
 
     float     = true,
     move      = { "monitor_w/2 - window_w/2", "46" },
-    opacity   = "0.60 override 0.50 override",
+    opacity   = "0.95 override 0.50 override",
     animation = "slide top",
 })
 
@@ -447,6 +452,16 @@ hl.window_rule({
                opacity = "1.0 override 0.6 override",
 })
 
+-- Float & Center the 144Hz Power Menu
+hl.window_rule({
+    name  = "marshmellow-power-menu",
+    match = { title = "^Marshmellow Power Menu$" },
+
+    float   = true,
+    center  = true,
+    opacity = "1.0 override 1.0 override",
+})
+
 -- Always 100% Opacity on Any Fullscreen Window / Video
 hl.window_rule({
     name  = "opaque-fullscreen",
@@ -487,6 +502,30 @@ hl.window_rule({
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+-- Float and center Marshmellow Studio
+hl.window_rule({
+    name  = "float-marshmellow-studio",
+    match = { title = "^Marshmellow Studio$" },
+
+    float   = true,
+    center  = true,
+    opacity = "0.95 override 0.90 override",
+})
+
+-- Transparent 144Hz Diamond Wave Wallpaper Switcher
+hl.window_rule({
+    name  = "marshmellow-wallpaper-carousel",
+    match = { title = "^Marshmellow Wallpapers$" },
+
+    float       = true,
+    size        = "1800 480",
+    center      = true,
+    border_size = 0,
+    no_blur     = true,
+    no_shadow   = true,
+    opacity     = "1.0 override 1.0 override",
 })
 
 -- Make SwayNC slide down from the top and enable frosted glass blur

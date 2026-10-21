@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Marshmellow Studio (Settings)
+GenericName=Hyprland & Waybar Settings
+Comment=Live tweak gaps, rounding, opacity, and Waybar
+Exec=/home/lilypersilly/.config/hypr/marshmellow-studio.py
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;
+Keywords=settings;marshmellow;waybar;hyprland;gaps;opacity;studio;

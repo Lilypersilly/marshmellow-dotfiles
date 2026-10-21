@@ -9,8 +9,9 @@ SUPER + T                   Open Terminal (kitty)
 SUPER + E                   Open File Manager (dolphin)
 SUPER + SPACE               Open / Toggle App Launcher (wofi)
 SUPER + R                   Open Menu (hyprlauncher)
+SUPER + SHIFT + W           Open Wallpaper Carousel
 SUPER + SHIFT + B           Reload / Restart Top Bar (waybar)
-SUPER + M                   Open Power Menu (wlogout)
+SUPER + M                   Open 144Hz Power Menu
 
 --- SCREENSHOTS (LUMINECAPTURE) ---
 SUPER + P                   Capture active monitor

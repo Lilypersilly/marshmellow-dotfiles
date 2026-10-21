@@ -5,11 +5,12 @@ import sys
 import urllib.parse
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GdkPixbuf, Pango
+from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib
 
 CSS = b"""
-window {
-    background-color: #fee4ff;
+window, window:backdrop, window.background {
+    background-color: rgba(254, 228, 255, 0.35);
+    background-image: none;
     border: none;
     border-radius: 0px;
     font-family: "Josefin Sans", "JetBrainsMono Nerd Font", sans-serif;
@@ -50,7 +51,7 @@ button.clip-item:hover {
 }
 """
 
-def get_history(limit=25):
+def get_history(limit=12):
     try:
         out = subprocess.check_output(["cliphist", "list"], text=True)
     except Exception:
@@ -74,6 +75,11 @@ class ClipboardDropdown(Gtk.Window):
         self.set_keep_above(True)
         self.set_default_size(360, 420)
 
+        screen = self.get_screen()
+        visual = screen.get_rgba_visual()
+        if visual and screen.is_composited():
+            self.set_visual(visual)
+
         provider = Gtk.CssProvider()
         provider.load_from_data(CSS)
         Gtk.StyleContext.add_provider_for_screen(
@@ -81,6 +87,7 @@ class ClipboardDropdown(Gtk.Window):
         )
 
         self.connect("key-press-event", self.on_key)
+        self.setup_auto_close()
 
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         main_box.set_margin_top(14)
@@ -89,7 +96,6 @@ class ClipboardDropdown(Gtk.Window):
         main_box.set_margin_end(16)
         self.add(main_box)
 
-        # Header Row
         hdr_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         lbl = Gtk.Label(label="󰅌   Clipboard History", xalign=0)
         lbl.get_style_context().add_class("header")
@@ -101,7 +107,6 @@ class ClipboardDropdown(Gtk.Window):
         hdr_box.pack_end(clear_btn, False, False, 0)
         main_box.pack_start(hdr_box, False, False, 2)
 
-        # Scrollable List
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroll.set_min_content_height(340)
@@ -109,8 +114,8 @@ class ClipboardDropdown(Gtk.Window):
 
         self.list_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         scroll.add(self.list_box)
-
-        self.populate()
+        self.show_all()
+        GLib.idle_add(self.populate)
 
     def populate(self):
         for child in self.list_box.get_children():
@@ -118,16 +123,16 @@ class ClipboardDropdown(Gtk.Window):
 
         items = get_history()
         if not items:
-            empty = Gtk.Label(label="Clipboard is empty ")
+            empty = Gtk.Label(label="Clipboard is empty")
             empty.set_margin_top(40)
             self.list_box.pack_start(empty, False, False, 0)
+            self.show_all()
             return
 
         for full_line, item_id, preview in items:
             btn = Gtk.Button()
             btn.get_style_context().add_class("clip-item")
 
-            # 1. Image item
             if "[[ binary data" in preview:
                 raw = decode_raw(full_line)
                 try:
@@ -150,8 +155,6 @@ class ClipboardDropdown(Gtk.Window):
                     lbl = Gtk.Label(label=f"󰏗   {preview}", xalign=0)
                     btn.add(lbl)
                     btn.connect("clicked", self.on_select, full_line, "raw")
-
-            # 2. Copied File(s) from Dolphin
             elif "file://" in preview:
                 clean = urllib.parse.unquote(preview).replace("copy", "").replace("file://", "").strip()
                 lbl = Gtk.Label(label=f"󰉋   File: {clean}", xalign=0)
@@ -159,8 +162,6 @@ class ClipboardDropdown(Gtk.Window):
                 lbl.set_max_width_chars(38)
                 btn.add(lbl)
                 btn.connect("clicked", self.on_select, full_line, "file")
-
-            # 3. Normal Text
             else:
                 lbl = Gtk.Label(label=f"󰈙   {preview.strip()}", xalign=0)
                 lbl.set_ellipsize(Pango.EllipsizeMode.END)
@@ -175,7 +176,6 @@ class ClipboardDropdown(Gtk.Window):
     def on_select(self, btn, full_line, mode):
         raw = decode_raw(full_line)
         if mode == "file":
-            # Restore as URI list so Dolphin can Ctrl+V paste the file
             uris = "\n".join([s for s in raw.decode(errors="ignore").split() if s.startswith("file://")]) + "\n"
             p = subprocess.Popen(["wl-copy", "--type", "text/uri-list"], stdin=subprocess.PIPE)
             p.communicate(input=uris.encode())
@@ -188,6 +188,47 @@ class ClipboardDropdown(Gtk.Window):
         subprocess.run(["cliphist", "wipe"])
         self.populate()
 
+    def setup_auto_close(self):
+        self._close_timer = None
+        self._has_entered = False
+        self.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK)
+        self.connect("enter-notify-event", self._on_enter)
+        self.connect("leave-notify-event", self._on_leave)
+        self.connect("focus-out-event", self._on_focus_out)
+        # If user never moves mouse into the popup within 2.5s, allow close
+        GLib.timeout_add(2500, self._arm_close)
+
+    def _arm_close(self):
+        self._has_entered = True
+        return False
+
+    def _start_close_timer(self):
+        if self._close_timer is None:
+            self._close_timer = GLib.timeout_add(500, Gtk.main_quit)
+
+    def _cancel_close_timer(self):
+        if self._close_timer is not None:
+            GLib.source_remove(self._close_timer)
+            self._close_timer = None
+
+    def _on_enter(self, widget, event):
+        self._has_entered = True
+        self._cancel_close_timer()
+        return False
+
+    def _on_leave(self, widget, event):
+        # Ignore when mouse moves onto a button/slider inside the popup itself
+        if event.detail == Gdk.NotifyType.INFERIOR:
+            return False
+        if self._has_entered:
+            self._start_close_timer()
+        return False
+
+    def _on_focus_out(self, *args):
+        if self._has_entered:
+            self._start_close_timer()
+        return False
+
     def on_key(self, widget, event):
         if event.keyval == Gdk.KEY_Escape:
             Gtk.main_quit()
@@ -199,7 +240,6 @@ if __name__ == "__main__":
         for p in pids:
             subprocess.run(["kill", p])
         sys.exit(0)
-
     win = ClipboardDropdown()
     win.connect("destroy", Gtk.main_quit)
     win.show_all()

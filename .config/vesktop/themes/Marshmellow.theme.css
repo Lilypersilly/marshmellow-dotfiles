@@ -1,0 +1,134 @@
+/**
+ * @name Marshmellow
+ * @author lilypersilly
+ * @description Custom Marshmellow Pastel Pink & Plum Theme
+ * @version 1.1.0
+ */
+
+:root,
+.theme-light,
+.theme-dark,
+.visual-refresh {
+    /* Fonts */
+    --font-primary: "Josefin Sans", "Noto Sans CJK JP", sans-serif !important;
+    --font-display: "Josefin Sans", "Noto Sans CJK JP", sans-serif !important;
+    --font-code: "MesloLGL Nerd Font", monospace !important;
+
+    /* Main Marshmellow Backgrounds */
+    --background-primary: #fee4ff !important;
+    --bg-base-primary: #fee4ff !important;
+    --bg-overlay-chat: #fee4ff !important;
+    --bg-overlay-1: #fee4ff !important;
+    --bg-overlay-2: #f8d4ff !important;
+    --bg-overlay-3: #ffc2ff !important;
+    --chat-background-default: #fee4ff !important;
+
+    /* Channel List & Member Sidebar */
+    --background-secondary: #f8d4ff !important;
+    --bg-base-secondary: #f8d4ff !important;
+    --bg-surface-raised: #f8d4ff !important;
+
+    /* Server Bar & Bottom-Left User Panel */
+    --background-secondary-alt: #ffc2ff !important;
+    --background-tertiary: #ffc2ff !important;
+    --bg-base-tertiary: #ffc2ff !important;
+
+    /* Popups, Modals & Context Menus */
+    --background-floating: #fee4ff !important;
+    --bg-surface-overlay: #fee4ff !important;
+    --modal-background: #fee4ff !important;
+    --modal-footer-background: #f8d4ff !important;
+    --background-accent: #ef96d9 !important;
+
+    /* Hover & Active Channel Highlights */
+    --background-modifier-hover: rgba(233, 117, 202, 0.22) !important;
+    --background-modifier-active: rgba(233, 117, 202, 0.35) !important;
+    --background-modifier-selected: #ef96d9 !important;
+    --background-modifier-accent: rgba(233, 117, 202, 0.35) !important;
+
+    /* Message Input Box */
+    --channeltextarea-background: #ffc2ff !important;
+    --input-background: #ffc2ff !important;
+
+    /* Dark Charcoal Text & Icons */
+    --text-normal: #333933 !important;
+    --text-default: #333933 !important;
+    --text-muted: #856d8a !important;
+    --text-link: #bf40a1 !important;
+    --header-primary: #322a32 !important;
+    --header-secondary: #504250 !important;
+    --channels-default: #504250 !important;
+    --channel-icon: #856d8a !important;
+    --interactive-normal: #504250 !important;
+    --interactive-hover: #bf40a1 !important;
+    --interactive-active: #322a32 !important;
+    --interactive-muted: #a38ca8 !important;
+
+    /* Berry Pink Accents & Mentions */
+    --brand-experiment: #e975ca !important;
+    --brand-experiment-560: #bf40a1 !important;
+    --brand-500: #e975ca !important;
+    --brand-560: #bf40a1 !important;
+    --mention-foreground: #bf40a1 !important;
+    --mention-background: rgba(233, 117, 202, 0.25) !important;
+    --background-mentioned: rgba(233, 117, 202, 0.18) !important;
+    --background-mentioned-hover: rgba(233, 117, 202, 0.28) !important;
+    --info-warning-foreground: #e975ca !important;
+
+    /* Scrollbars */
+    --scrollbar-thin-thumb: #e975ca !important;
+    --scrollbar-auto-thumb: #e975ca !important;
+    --scrollbar-auto-track: #f8d4ff !important;
+}
+
+/* Force Main Chat, Form Footer, Sidebar, and Member List Containers */
+[class*="chat_"],
+[class*="chatContent_"],
+[class*="messagesWrapper_"],
+[class*="scroller_"],
+[class*="form_"] {
+    background: #fee4ff !important;
+    background-color: #fee4ff !important;
+}
+
+[class*="form_"]::before,
+[class*="form_"]::after {
+    display: none !important;
+}
+
+[class*="sidebar_"],
+[class*="privateChannels_"],
+[class*="members_"],
+[class*="membersWrap_"] {
+    background-color: #f8d4ff !important;
+}
+
+/* Fix 1: Eliminate White Outer Corners on the Message Input Box */
+[class*="channelTextArea_"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+[class*="channelTextArea_"] [class*="scrollableContainer_"] {
+    background: #ffc2ff !important;
+    background-color: #ffc2ff !important;
+    border: 2px solid #e975ca !important;
+    border-radius: 16px !important;
+    box-shadow: none !important;
+}
+
+/* Fix 2: Full 4-Sided Rounded Border on the Bottom-Left User Panel */
+[class*="panels_"] {
+    background-color: #ffc2ff !important;
+    border: 2px solid #e975ca !important;
+    border-radius: 16px !important;
+    box-shadow: none !important;
+}
+
+[class*="panels_"] > div,
+[class*="panels_"] [class*="container_"] {
+    background: transparent !important;
+    background-color: transparent !important;
+}

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Wallpapers (Marshmellow Carousel)
+GenericName=Animated Wallpaper Switcher
+Comment=Horizontal 144Hz wallpaper ribbon
+Exec=/home/lilypersilly/.config/hypr/wallpaper-carousel.py
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;
+Keywords=wallpaper;background;carousel;swww;marshmellow;

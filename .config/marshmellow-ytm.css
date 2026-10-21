@@ -1,0 +1,150 @@
+/* --- MARSHMELLOW YOUTUBE MUSIC THEME (DARK TEXT FIX) --- */
+:root, html, body, ytmusic-app {
+    --ytmusic-color-black1: #fee4ff !important;
+    --ytmusic-color-black2: #f8d4ff !important;
+    --ytmusic-color-black3: #ffc2ff !important;
+    --ytmusic-color-black4: #fee4ff !important;
+    --ytmusic-color-blackpure: #fee4ff !important;
+    --ytmusic-color-white1: #333933 !important;
+    --ytmusic-color-white1-alpha70: #504250 !important;
+    --ytmusic-color-grey1: #504250 !important;
+    --ytmusic-color-grey2: #504250 !important;
+    --ytmusic-text-primary: #333933 !important;
+    --ytmusic-text-secondary: #504250 !important;
+    --ytmusic-brand-red: #e975ca !important;
+    --yt-spec-base-background: #fee4ff !important;
+    --yt-spec-raised-background: #f8d4ff !important;
+    --yt-spec-menu-background: #fee4ff !important;
+    --yt-spec-text-primary: #333933 !important;
+    --yt-spec-text-secondary: #504250 !important;
+    --yt-spec-icon-active-other: #333933 !important;
+    --yt-spec-icon-inactive: #504250 !important;
+    --yt-spec-static-brand-red: #e975ca !important;
+}
+
+body, html, ytmusic-app, ytmusic-app-layout, #content {
+    background: #fee4ff !important;
+    color: #333933 !important;
+    font-family: "Josefin Sans", "Noto Sans CJK JP", sans-serif !important;
+}
+
+/* Force ALL text, spans, labels, and icons to be Dark Charcoal */
+yt-formatted-string,
+span,
+a,
+p,
+h1, h2, h3,
+.title,
+.subtitle,
+.byline,
+.time-info,
+yt-icon,
+tp-yt-iron-icon,
+.yt-icon-container {
+    color: #333933 !important;
+}
+
+/* Fix the "UP NEXT / LYRICS / RELATED" Tabs */
+tp-yt-paper-tab,
+tp-yt-paper-tab .tab-content {
+    color: #856d8a !important;
+    font-weight: bold !important;
+}
+
+tp-yt-paper-tab.iron-selected,
+tp-yt-paper-tab.iron-selected .tab-content {
+    color: #bf40a1 !important;
+    border-bottom: 3px solid #e975ca !important;
+}
+
+#selectionBar.tp-yt-paper-tabs {
+    border-bottom-color: #e975ca !important;
+    background-color: #e975ca !important;
+}
+
+/* Fix the Search Box (Marshmellow Pill with Dark Text) */
+ytmusic-search-box,
+.search-box.ytmusic-search-box,
+.search-container.ytmusic-search-box {
+    background-color: #ffc2ff !important;
+    border: 2px solid #e975ca !important;
+    border-radius: 999px !important;
+    color: #333933 !important;
+}
+
+ytmusic-search-box input,
+input#input,
+#placeholder.ytmusic-search-box {
+    color: #333933 !important;
+}
+
+/* Fix Buttons ("+ New playlist", "Save", etc.) */
+.yt-spec-button-shape-next,
+yt-button-renderer button,
+tp-yt-paper-button {
+    background-color: #ffc2ff !important;
+    color: #333933 !important;
+    border: 1.5px solid #e975ca !important;
+    border-radius: 999px !important;
+}
+
+.yt-spec-button-shape-next:hover {
+    background-color: #ef96d9 !important;
+}
+
+/* Fix the "Song / Video" Toggle Switch */
+ytmusic-av-toggle,
+.av-switch.ytmusic-av-toggle {
+    background-color: #f8d4ff !important;
+    border: 2px solid #e975ca !important;
+    border-radius: 999px !important;
+}
+
+.song-button.ytmusic-av-toggle,
+.video-button.ytmusic-av-toggle {
+    color: #333933 !important;
+    border-radius: 999px !important;
+}
+
+.song-button[aria-pressed="true"].ytmusic-av-toggle,
+.video-button[aria-pressed="true"].ytmusic-av-toggle {
+    background-color: #e975ca !important;
+    color: #fee4ff !important;
+}
+
+/* Fix Top-Left YouTube Music Logo (Make white text dark & red circle pink!) */
+.yt-simple-endpoint.ytmusic-logo img,
+ytmusic-logo {
+    filter: invert(0.8) hue-rotate(140deg) saturate(1.8) !important;
+}
+
+/* Top Nav Bar & Left Sidebar */
+ytmusic-nav-bar,
+#nav-bar-background,
+ytmusic-guide-renderer,
+#guide-wrapper,
+#mini-guide-background {
+    background: #f8d4ff !important;
+    border-color: #e975ca !important;
+}
+
+/* Active Sidebar Item ("Home", "Explore", "Library") */
+tp-yt-paper-item.iron-selected {
+    background-color: #ffc2ff !important;
+    border-radius: 12px !important;
+}
+
+/* Bottom Player Bar */
+ytmusic-player-bar,
+#player-bar-background {
+    background: #ffc2ff !important;
+    border-top: 2px solid #e975ca !important;
+    color: #333933 !important;
+}
+
+/* Progress Bar Slider */
+#progress-bar {
+    --paper-slider-active-color: #e975ca !important;
+    --paper-slider-knob-color: #bf40a1 !important;
+    --paper-slider-container-color: rgba(50, 42, 50, 0.25) !important;
+}
