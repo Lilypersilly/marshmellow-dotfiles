@@ -37,6 +37,7 @@ echo "🌸 All Day 1 & Day 2 Marshmellow dotfiles synced to $DOTS!"
 # --- SDDM Marshmellow Theme & Config Backup ---
 mkdir -p "$HOME/marshmellow-dotfiles/sddm/sddm.conf.d"
 mkdir -p "$HOME/marshmellow-dotfiles/sddm/sugar-candy/Components"
-cp -f /etc/sddm.conf.d/marshmellow.conf "$HOME/marshmellow-dotfiles/sddm/sddm.conf.d/" 2>/dev/null
+cp -f /etc/sddm.conf.d/zz-marshmellow.conf "$HOME/marshmellow-dotfiles/sddm/sddm.conf.d/" 2>/dev/null
 cp -f /usr/share/sddm/themes/sugar-candy/{Main.qml,theme.conf,theme.conf.user,metadata.desktop} "$HOME/marshmellow-dotfiles/sddm/sugar-candy/" 2>/dev/null
 cp -f /usr/share/sddm/themes/sugar-candy/Components/*.qml "$HOME/marshmellow-dotfiles/sddm/sugar-candy/Components/" 2>/dev/null
+cp -f /usr/share/sddm/scripts/Xsetup "$HOME/marshmellow-dotfiles/sddm/" 2>/dev/null

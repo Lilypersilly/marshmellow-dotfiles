@@ -1,0 +1,4 @@
+#!/bin/sh
+# Xsetup - run as root before the login dialog appears
+
+xrandr --output DVI-D-1 --mode 1920x1080 --pos 0x313 --rotate normal --output DP-3 --mode 1920x1080 --pos 1920x0 --rotate right
