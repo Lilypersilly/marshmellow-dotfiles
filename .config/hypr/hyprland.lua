@@ -66,7 +66,8 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("~/.config/hypr/dashboard.sh")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
    	hl.exec_cmd("wl-paste --type image --watch cliphist store")
-    	hl.exec_cmd("wl-paste --type text/uri-list --watch cliphist store")
+    hl.exec_cmd("wl-paste --type text/uri-list --watch cliphist store")
+    hl.exec_cmd("/home/lilypersilly/lily-dashboard/target/release/lily-dashboard")
 end)
 
 
@@ -313,6 +314,8 @@ hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
 hl.bind(mainMod .. " + P",         hl.dsp.exec_cmd("lumine-capture -m")) -- Capture active monitor
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("lumine-capture"))    -- Resizable selection / Editor
 hl.bind(mainMod .. " + CTRL + P",  hl.dsp.exec_cmd("lumine-capture -f")) -- Capture all monitors (fullscreen)
+
+hl.bind("SUPER + Super_L", hl.dsp.exec_cmd("/home/lilypersilly/lily-dashboard/target/release/lily-dashboard"), { release = true })
 
 -- Reload Waybar
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("killall waybar; waybar"))
