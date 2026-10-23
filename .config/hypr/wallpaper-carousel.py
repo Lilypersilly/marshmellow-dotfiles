@@ -37,14 +37,35 @@ def rounded_rect(cr, x, y, w, h, r):
     cr.arc(x + r, y + r, r, math.pi, 3 * math.pi / 2)
     cr.close_path()
 
+def get_vertical_pair(img_path):
+    """Return the paired image in ~/Pictures/Wallpapers/vertical/ if one exists."""
+    vert_dir = os.path.join(WALL_DIR, "vertical")
+    base_name = os.path.basename(img_path)
+    stem, _ = os.path.splitext(base_name)
+
+    # 1. Exact filename match
+    exact = os.path.join(vert_dir, base_name)
+    if os.path.exists(exact):
+        return exact
+
+    # 2. Match same name even if saved with a different extension (.png vs .jpg)
+    for ext in VALID_EXTS:
+        alt = os.path.join(vert_dir, stem + ext)
+        if os.path.exists(alt):
+            return alt
+
+    return img_path
+
 def load_cached_surface(img_path, target_w=160, target_h=440):
     os.makedirs(CACHE_DIR, exist_ok=True)
-    mtime = os.path.getmtime(img_path)
-    h = hashlib.md5(f"{img_path}-{mtime}-{target_w}x{target_h}".encode()).hexdigest()
+    # Use the vertical crop for the tall carousel slice preview if it exists!
+    source_img = get_vertical_pair(img_path)
+    mtime = os.path.getmtime(source_img)
+    h = hashlib.md5(f"{source_img}-{mtime}-{target_w}x{target_h}".encode()).hexdigest()
     thumb_path = os.path.join(CACHE_DIR, f"{h}.png")
 
     if not os.path.exists(thumb_path):
-        pix = GdkPixbuf.Pixbuf.new_from_file(img_path)
+        pix = GdkPixbuf.Pixbuf.new_from_file(source_img)
         pw, ph = pix.get_width(), pix.get_height()
         scale = max(target_w / pw, target_h / ph)
         sw, sh = max(target_w, int(pw * scale)), max(target_h, int(ph * scale))
@@ -222,6 +243,7 @@ class WaveCarousel(Gtk.Application):
         import json
         with open(STATE_FILE, "w") as f:
             f.write(path)
+        vert_path = get_vertical_pair(path)
         try:
             mons = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True))
             cmds = ["(pgrep -x swww-daemon >/dev/null || pgrep -x awww-daemon >/dev/null || swww-daemon --format xrgb &);"]
@@ -229,8 +251,9 @@ class WaveCarousel(Gtk.Application):
                 name = m["name"]
                 is_vert = (m.get("transform", 0) in (1, 3)) or (m.get("height", 0) > m.get("width", 0))
                 pos = "top-left" if is_vert else "top-right"
+                target_img = vert_path if is_vert else path
                 cmds.append(
-                    f"swww img -o '{name}' '{path}' --resize crop --transition-type grow "
+                    f"swww img -o '{name}' '{target_img}' --resize crop --transition-type grow "
                     f"--transition-pos {pos} --transition-fps 144 --transition-step 200 "
                     f"--transition-bezier .25,.1,.25,1 --transition-duration 1.4 &"
                 )
@@ -240,6 +263,10 @@ class WaveCarousel(Gtk.Application):
         self.quit()
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
+        WaveCarousel().apply_wallpaper(os.path.abspath(sys.argv[1]))
+        sys.exit(0)
+
     res = subprocess.run(["pgrep", "-f", "wallpaper-carousel.py"], capture_output=True, text=True)
     pids = [p for p in res.stdout.split() if int(p) != subprocess.os.getpid()]
     if pids:

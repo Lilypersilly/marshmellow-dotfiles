@@ -62,7 +62,7 @@ hl.on("hyprland.start", function ()
 	hl.exec_cmd("~/.config/hypr/automount.sh")
 	hl.exec_cmd("pkill swayosd-server; swayosd-server")
     hl.exec_cmd("swww-daemon --format xrgb")
-    hl.exec_cmd("sh -c '[ -f ~/.config/hypr/.current_wallpaper ] && swww img \"$(cat ~/.config/hypr/.current_wallpaper)\" --resize crop'")
+    hl.exec_cmd("sh -c '[ -f ~/.config/hypr/.current_wallpaper ] && ~/.config/hypr/wallpaper-carousel.py \"$(cat ~/.config/hypr/.current_wallpaper)\"'")
     hl.exec_cmd("~/.config/hypr/dashboard.sh")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
    	hl.exec_cmd("wl-paste --type image --watch cliphist store")
@@ -241,6 +241,10 @@ hl.config({
         kb_options = "",
         kb_rules   = "",
         accel_profile = "flat",
+
+        scroll_method = "on_button_down",
+        scroll_button = 274,            -- 274 is the Linux input code for the Middle Mouse Button
+     -- Optional: set to true to toggle, false to require holding it down
 
         follow_mouse = 1,
 

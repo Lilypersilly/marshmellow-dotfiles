@@ -148,3 +148,8 @@ ytmusic-player-bar,
     --paper-slider-knob-color: #bf40a1 !important;
     --paper-slider-container-color: rgba(50, 42, 50, 0.25) !important;
 }
+
+::selection {
+    background-color: #DE74CB !important;
+    color: #ffffff !important;
+}
