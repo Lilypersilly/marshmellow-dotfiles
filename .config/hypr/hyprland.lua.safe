@@ -67,7 +67,7 @@ hl.on("hyprland.start", function ()
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
    	hl.exec_cmd("wl-paste --type image --watch cliphist store")
     hl.exec_cmd("wl-paste --type text/uri-list --watch cliphist store")
-    hl.exec_cmd("/home/lilypersilly/lily-dashboard/target/release/lily-dashboard")
+    hl.exec_cmd("sleep 0.2 && /home/lilypersilly/lily-dashboard/target/release/lily-dashboard")
 end)
 
 

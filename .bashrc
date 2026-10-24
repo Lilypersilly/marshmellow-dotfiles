@@ -46,3 +46,18 @@ alias fixhypr='cp ~/.config/hypr/hyprland.lua.safe ~/.config/hypr/hyprland.lua.t
 
 # 1-word command to sync and push all Marshmellow dotfiles to GitHub
 alias backupdots='cp ~/.config/hypr/hyprland.lua ~/.config/hypr/hyprland.lua.safe && ~/marshmellow-dotfiles/sync.sh && cd ~/marshmellow-dotfiles && git add . && git commit -m "Update Marshmellow dotfiles 🌸" && git push && cd - >/dev/null'
+
+
+# Custom update command: runs Timeshift, then pacman
+update() {
+    echo "--> [Timeshift] Creating pre-update snapshot..."
+    sudo timeshift --create --comments "Auto-backup before update"
+    
+    if [ $? -eq 0 ]; then
+        echo "--> [Timeshift] Snapshot successful! Proceeding with update..."
+        sudo pacman -Syu
+    else
+        echo "--> [Timeshift] Error: Snapshot failed! Aborting update for safety."
+        return 1
+    fi
+}
