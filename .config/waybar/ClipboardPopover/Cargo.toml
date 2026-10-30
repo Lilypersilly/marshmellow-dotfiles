@@ -1,0 +1,12 @@
+[package]
+name = "clipboard-popover"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gtk = { version = "0.18", package = "gtk" }
+gdk = "0.18"
+gdk-pixbuf = "0.18"
+glib = "0.18"
+pango = "0.18"
+percent-encoding = "2.3"

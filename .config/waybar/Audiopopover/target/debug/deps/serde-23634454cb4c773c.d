@@ -1,0 +1,14 @@
+/home/lilypersilly/.config/waybar/Audiopopover/target/debug/deps/serde-23634454cb4c773c.d: /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/lilypersilly/.config/waybar/Audiopopover/target/debug/build/serde-d4ec853707703150/out/private.rs
+
+/home/lilypersilly/.config/waybar/Audiopopover/target/debug/deps/libserde-23634454cb4c773c.rlib: /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/lilypersilly/.config/waybar/Audiopopover/target/debug/build/serde-d4ec853707703150/out/private.rs
+
+/home/lilypersilly/.config/waybar/Audiopopover/target/debug/deps/libserde-23634454cb4c773c.rmeta: /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/lilypersilly/.config/waybar/Audiopopover/target/debug/build/serde-d4ec853707703150/out/private.rs
+
+/home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs:
+/home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs:
+/home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs:
+/home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs:
+/home/lilypersilly/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs:
+/home/lilypersilly/.config/waybar/Audiopopover/target/debug/build/serde-d4ec853707703150/out/private.rs:
+
+# env-dep:OUT_DIR=/home/lilypersilly/.config/waybar/Audiopopover/target/debug/build/serde-d4ec853707703150/out

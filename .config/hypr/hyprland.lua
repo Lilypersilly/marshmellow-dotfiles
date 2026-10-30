@@ -69,6 +69,8 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("wl-paste --type text/uri-list --watch cliphist store")
     hl.exec_cmd("sleep 0.2 && /home/lilypersilly/lily-dashboard/target/release/lily-dashboard")
 end)
+    hl.exec_cmd("cat /usr/lib/firefox/firefox > /dev/null")
+    hl.exec_cmd("firefox --headless --headless & sleep 1 && pkill firefox")
 
 
 -------------------------------
@@ -81,6 +83,7 @@ hl.env("XCURSOR_THEME", "catppuccin-frappe-pink-cursors")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_THEME", "catppuccin-frappe-pink-cursors")
 hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("MOZ_ENABLE_WAYLAND", "1")
 
 -- Force Hyprland to apply the cursor instantly on boot
 hl.exec_cmd("hyprctl setcursor catppuccin-frappe-pink-cursors 24")
@@ -340,6 +343,10 @@ hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
+-- Make Window Fullscreen
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+
+
 -- Laptop multimedia keys for volume and LCD brightness (SwayOSD)
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("sh -c 'swayosd-client --output-volume raise'"))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("sh -c 'swayosd-client --output-volume lower'"))
@@ -406,6 +413,16 @@ hl.window_rule({
     rounding    = 0,
     no_anim     = true,
     opacity     = "1.0 override 1.0 override",
+})
+-- Divergence Meter Dropdown
+hl.window_rule({
+    name = "nixie-clock-dropdown",
+    match = { title = "^nixie-clock-popup$" },
+    float = true,
+    border_size = 0,
+    pin = true,
+    animation = "slide top",
+    move = { "50%-50w", "46" },
 })
 
 -- Pin the Media Dropdown to the top center
@@ -550,7 +567,6 @@ hl.window_rule({
 hl.layer_rule({
     name  = "swaync-dropdown-anim",
     match = { namespace = "^swaync-control-center$" },
-
     animation   = "slide top",
     blur        = true,
 })
@@ -569,6 +585,34 @@ hl.window_rule({
     workspace = "2",
     opacity   = "1.0 override 0.6 override",
 })
+
+-- Dropdown Nixie Clock Popup
+hl.window_rule({
+    name = "nixie-clock-popup",
+    match = { class = "^swayimg$" },
+    float = true,
+    border_size = 0,
+    pin = true,
+    center = true,
+})
+
+-- Disable open/close animations on the starter window so it appears & swaps instantaneously
+--hl.window_rule({
+--    name = "lily-ff-starter-no-anim",
+--    match = {
+--        class = "^com\\.lily\\.ffstarter$",
+--    },
+--    no_anim = true,
+--})
+
+--hl.window_rule({
+--    name = "firefox-warmup-instant",
+--    match = {
+--        class = "^(firefox|org\\.mozilla\\.firefox)$",
+--               workspace = "special:ff_warmup",
+--    },
+--    no_anim = true,
+--})
 
 -- Autostart vertical monitor dashboard (btop on top, lavat + cava on bottom)
 hl.on("hyprland.start", function()

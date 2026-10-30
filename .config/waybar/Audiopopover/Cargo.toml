@@ -1,0 +1,11 @@
+[package]
+name = "audio-popover"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gtk = { version = "0.18", package = "gtk" }
+gdk = "0.18"
+glib = "0.18"
+regex = "1.10"
+sysinfo = "0.30"

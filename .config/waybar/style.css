@@ -32,6 +32,7 @@ window#waybar {
 #window,
 #clock,
 #custom-clipboard,
+#custom-notification,
 #pulseaudio,
 #network,
 #cpu,
@@ -83,6 +84,7 @@ window#waybar.empty #window {
 }
 
 #custom-clipboard { color: @magenta; }
+#custom-notification { color: @critical; font-weight: 900; }
 #pulseaudio       { color: @magenta; }
 #network          { color: @fg_main; }
 #cpu              { color: @magenta; }
